@@ -3,13 +3,15 @@ import PropTypes from "prop-types";
 import { Box, ButtonBase } from "@mui/material";
 import { useState } from "react";
 import ChevronDownIcon from "@heroicons/react/24/solid/ChevronDownIcon";
-import ChevronUpIcon from "@heroicons/react/24/solid/ChevronUpIcon";
+import ChevronRightIcon from "@heroicons/react/24/solid/ChevronRightIcon";
 import { SvgIcon } from "@mui/material";
 import Collapse from "@mui/material/Collapse";
+import { usePathname } from "next/navigation";
 
 export const SideNavItem = (props) => {
   const { active = false, disabled, external, icon, path, title, sub } = props;
-  const [open, setOpen] = useState(true);
+  const pathname = usePathname();
+  const [open, setOpen] = useState(false);
   const handleClick = () => {
     setOpen(!open);
   };
@@ -28,7 +30,7 @@ export const SideNavItem = (props) => {
     : {};
 
   return (
-    <li>
+    <li className="mt-1">
       <ButtonBase
         onClick={handleClick}
         sx={{
@@ -95,25 +97,26 @@ export const SideNavItem = (props) => {
               color: "neutral.400",
               display: "inline-flex",
               justifyContent: "center",
-              mr: 2,
+              ml: 2,
               ...(active && {
                 color: "primary.main",
               }),
             }}
+            className="font-[16px]"
           >
             {open ? (
-              <SvgIcon fontSize="small">
-                <ChevronUpIcon />
+              <SvgIcon fontSize="inherit">
+                <ChevronDownIcon />
               </SvgIcon>
             ) : (
-              <SvgIcon fontSize="small">
-                <ChevronDownIcon />
+              <SvgIcon fontSize="inherit">
+                <ChevronRightIcon />
               </SvgIcon>
             )}
           </Box>
         )}
       </ButtonBase>
-      <Collapse in={open} timeout="auto" unmountOnExit>
+      <Collapse in={open} timeout="auto" unmountOnExit className="pl-5">
         <Box
           component="ul"
           sx={{
@@ -124,9 +127,7 @@ export const SideNavItem = (props) => {
         >
           {sub &&
             sub.map((item) => {
-              {
-                /* const active = item.path ? pathname === item.path : false; */
-              }
+              const active = item.path ? pathname === item.path : false;
 
               return (
                 <SideNavItem
@@ -137,7 +138,7 @@ export const SideNavItem = (props) => {
                   key={item.title}
                   path={item.path}
                   title={item.title}
-                  sub={item.children}
+                  sub={item.subItems}
                 />
               );
             })}

@@ -8,88 +8,173 @@ import UsersIcon from "@heroicons/react/24/solid/UsersIcon";
 import XCircleIcon from "@heroicons/react/24/solid/XCircleIcon";
 import { SvgIcon } from "@mui/material";
 
-export const items = [
+export const sideNavData = [
   {
-    title: "Overview",
-    // path: '/',
-    icon: (
-      <SvgIcon fontSize="small">
-        <ChartBarIcon />
-      </SvgIcon>
-    ),
-    children: [
+    id: 1,
+    title: "Nhóm 1",
+    items: [
       {
-        title: "Dashboard",
-        path: "/",
+        title: "Overview",
         icon: (
           <SvgIcon fontSize="small">
             <ChartBarIcon />
+          </SvgIcon>
+        ),
+        state: "overview",
+        subItems: [
+          {
+            title: "Dashboard",
+            state: "overview.dashboard",
+            path: "/",
+            icon: (
+              <SvgIcon fontSize="small">
+                <ChartBarIcon />
+              </SvgIcon>
+            ),
+          },
+          {
+            title: "Analytics",
+            state: "overview.analytics",
+            icon: (
+              <SvgIcon fontSize="small">
+                <ShoppingBagIcon />
+              </SvgIcon>
+            ),
+            subItems: [
+              {
+                title: "Overview",
+                path: "/analytics/overview",
+                state: "overview.analytics.overview",
+                icon: (
+                  <SvgIcon fontSize="small">
+                    <CogIcon />
+                  </SvgIcon>
+                ),
+              },
+              {
+                title: "Performance",
+                path: "/analytics/performance",
+                state: "overview.analytics.performance",
+                icon: (
+                  <SvgIcon fontSize="small">
+                    <CogIcon />
+                  </SvgIcon>
+                ),
+              },
+              {
+                title: "Settings",
+                path: "/analytics/settings",
+                state: "overview.analytics.settings",
+                icon: (
+                  <SvgIcon fontSize="small">
+                    <CogIcon />
+                  </SvgIcon>
+                ),
+              },
+            ],
+          },
+          {
+            title: "Finance",
+            path: "/finance",
+            icon: (
+              <SvgIcon fontSize="small">
+                <ChartBarIcon />
+              </SvgIcon>
+            ),
+          },
+          {
+            title: "Reports",
+            path: "/reports",
+            icon: (
+              <SvgIcon fontSize="small">
+                <ChartBarIcon />
+              </SvgIcon>
+            ),
+          },
+        ],
+      },
+      {
+        title: "Customers",
+        state: "customers",
+        path: "/customers",
+        icon: (
+          <SvgIcon fontSize="small">
+            <UsersIcon />
+          </SvgIcon>
+        ),
+      },
+      {
+        title: "Companies",
+        path: "/companies",
+        state: "companies",
+        icon: (
+          <SvgIcon fontSize="small">
+            <ShoppingBagIcon />
+          </SvgIcon>
+        ),
+      },
+      {
+        title: "Account",
+        state: "account",
+        path: "/account",
+        icon: (
+          <SvgIcon fontSize="small">
+            <UserIcon />
           </SvgIcon>
         ),
       },
     ],
   },
   {
-    title: "Customers",
-    path: "/customers",
-    icon: (
-      <SvgIcon fontSize="small">
-        <UsersIcon />
-      </SvgIcon>
-    ),
+    id: 2,
+    title: "Nhóm 2",
+    items: [
+      {
+        title: "Settings",
+        path: "/settings",
+        state: "settings",
+        icon: (
+          <SvgIcon fontSize="small">
+            <CogIcon />
+          </SvgIcon>
+        ),
+      },
+      {
+        title: "Login",
+        path: "/auth/login",
+        state: "login",
+        icon: (
+          <SvgIcon fontSize="small">
+            <LockClosedIcon />
+          </SvgIcon>
+        ),
+      },
+      {
+        title: "Register",
+        path: "/auth/register",
+        state: "register",
+        icon: (
+          <SvgIcon fontSize="small">
+            <UserPlusIcon />
+          </SvgIcon>
+        ),
+      },
+    ],
   },
   {
-    title: "Companies",
-    path: "/companies",
-    icon: (
-      <SvgIcon fontSize="small">
-        <ShoppingBagIcon />
-      </SvgIcon>
-    ),
-  },
-  {
-    title: "Account",
-    path: "/account",
-    icon: (
-      <SvgIcon fontSize="small">
-        <UserIcon />
-      </SvgIcon>
-    ),
-  },
-  {
-    title: "Settings",
-    path: "/settings",
-    icon: (
-      <SvgIcon fontSize="small">
-        <CogIcon />
-      </SvgIcon>
-    ),
-  },
-  {
-    title: "Login",
-    path: "/auth/login",
-    icon: (
-      <SvgIcon fontSize="small">
-        <LockClosedIcon />
-      </SvgIcon>
-    ),
-  },
-  {
-    title: "Register",
-    path: "/auth/register",
-    icon: (
-      <SvgIcon fontSize="small">
-        <UserPlusIcon />
-      </SvgIcon>
-    ),
-  },
-  {
-    title: "Error",
-    path: "/404",
-    icon: (
-      <SvgIcon fontSize="small">
-        <XCircleIcon />
-      </SvgIcon>
-    ),
+    id: 3,
+    title: "Nhóm 3",
+    items: [
+      {
+        title: "Error",
+        path: "/404",
+        state: "page404",
+        icon: (
+          <SvgIcon fontSize="small">
+            <XCircleIcon />
+          </SvgIcon>
+        ),
+      },
+    ],
   },
 ];

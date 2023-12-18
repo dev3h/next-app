@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import { Logo } from "src/components/logo";
 import { Scrollbar } from "src/components/scrollbar";
-import { items } from "./config";
+import { sideNavData } from "./config";
 import { SideNavItem } from "./side-nav-item";
 
 export const SideNav = (props) => {
@@ -97,65 +97,35 @@ export const SideNav = (props) => {
               m: 0,
             }}
           >
-            {items.map((item) => {
-              const active = item.path ? pathname === item.path : false;
-
+            {sideNavData?.map((item) => {
               return (
-                <SideNavItem
-                  active={active}
-                  disabled={item.disabled}
-                  external={item.external}
-                  icon={item.icon}
-                  key={item.title}
-                  path={item.path}
-                  title={item.title}
-                  sub={item.children}
-                />
+                <div key={item?.id} className={item?.id !== 1 ? "!mt-4" : ""}>
+                  <Typography
+                    color="neutral.400"
+                    variant="overline"
+                    className="uppercase font-bold !ml-2 inline-block"
+                  >
+                    {item?.title}
+                  </Typography>
+
+                  <div className="mt-3">
+                    {item?.items?.map((item) => (
+                      <SideNavItem
+                        active={item.path ? pathname === item.path : false}
+                        disabled={item.disabled}
+                        external={item.external}
+                        icon={item.icon}
+                        key={item.title}
+                        path={item.path}
+                        title={item.title}
+                        sub={item.subItems}
+                      />
+                    ))}
+                  </div>
+                </div>
               );
             })}
           </Stack>
-        </Box>
-        <Divider sx={{ borderColor: "neutral.700" }} />
-        <Box
-          sx={{
-            px: 2,
-            py: 3,
-          }}
-        >
-          <Typography color="neutral.100" variant="subtitle2">
-            Need more features?
-          </Typography>
-          <Typography color="neutral.500" variant="body2">
-            Check out our Pro solution template.
-          </Typography>
-          <Box
-            sx={{
-              display: "flex",
-              mt: 2,
-              mx: "auto",
-              width: "160px",
-              "& img": {
-                width: "100%",
-              },
-            }}
-          >
-            <img alt="Go to pro" src="/assets/devias-kit-pro.png" />
-          </Box>
-          <Button
-            component="a"
-            endIcon={
-              <SvgIcon fontSize="small">
-                <ArrowTopRightOnSquareIcon />
-              </SvgIcon>
-            }
-            fullWidth
-            href="https://material-kit-pro-react.devias.io/"
-            sx={{ mt: 2 }}
-            target="_blank"
-            variant="contained"
-          >
-            Pro Live Preview
-          </Button>
         </Box>
       </Box>
     </Scrollbar>
