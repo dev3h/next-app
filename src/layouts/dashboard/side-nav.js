@@ -17,11 +17,46 @@ import { Logo } from "src/components/logo";
 import { Scrollbar } from "src/components/scrollbar";
 import { sideNavData } from "./config";
 import { SideNavItem } from "./side-nav-item";
+import { useEffect, useState } from "react";
 
+const activateNavItems = (items, targetPath) => {
+  return items.map((item) => {
+    const subItems = item.subItems ? activateNavItems(item.subItems, targetPath) : [];
+    const isActive = item.path ? targetPath === item.path : false;
+
+    // Kích hoạt các mục cha nếu một mục con được kích hoạt
+    const isAnyChildActive = subItems.some((subItem) => subItem.active);
+    const shouldActivateParent = isActive || isAnyChildActive;
+
+    return {
+      ...item,
+      active: shouldActivateParent,
+      subItems: subItems,
+    };
+  });
+};
+
+const setNavDataActiveState = (navData, targetPath) => {
+  return navData.map((group) => {
+    const items = activateNavItems(group.items, targetPath);
+    const isActive = items.some((item) => item.active);
+
+    return {
+      ...group,
+      active: isActive,
+      items: items,
+    };
+  });
+};
 export const SideNav = (props) => {
   const { open, onClose } = props;
   const pathname = usePathname();
+  const [newSideNavData, setNewSideNavData] = useState(sideNavData);
   const lgUp = useMediaQuery((theme) => theme.breakpoints.up("lg"));
+  useEffect(() => {
+    const updatedNavData = setNavDataActiveState(sideNavData, pathname);
+    setNewSideNavData(updatedNavData);
+  }, [pathname]);
 
   const content = (
     <Scrollbar
@@ -97,7 +132,7 @@ export const SideNav = (props) => {
               m: 0,
             }}
           >
-            {sideNavData?.map((item) => {
+            {newSideNavData?.map((item) => {
               return (
                 <div key={item?.id} className={item?.id !== 1 ? "!mt-4" : ""}>
                   <Typography
@@ -111,7 +146,7 @@ export const SideNav = (props) => {
                   <div className="mt-3">
                     {item?.items?.map((item) => (
                       <SideNavItem
-                        active={item.path ? pathname === item.path : false}
+                        active={item.active}
                         disabled={item.disabled}
                         external={item.external}
                         icon={item.icon}

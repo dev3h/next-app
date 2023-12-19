@@ -1,20 +1,21 @@
 import NextLink from "next/link";
 import PropTypes from "prop-types";
 import { Box, ButtonBase } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ChevronDownIcon from "@heroicons/react/24/solid/ChevronDownIcon";
 import ChevronRightIcon from "@heroicons/react/24/solid/ChevronRightIcon";
 import { SvgIcon } from "@mui/material";
 import Collapse from "@mui/material/Collapse";
-import { usePathname } from "next/navigation";
 
 export const SideNavItem = (props) => {
   const { active = false, disabled, external, icon, path, title, sub } = props;
-  const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const handleClick = () => {
     setOpen(!open);
   };
+  useEffect(() => {
+    if (active) setOpen(true);
+  }, [active]);
 
   const linkProps = path
     ? external
@@ -89,7 +90,7 @@ export const SideNavItem = (props) => {
         >
           {title}
         </Box>
-        {sub && (
+        {sub?.length > 0 && (
           <Box
             component="span"
             sx={{
@@ -127,11 +128,9 @@ export const SideNavItem = (props) => {
         >
           {sub &&
             sub.map((item) => {
-              const active = item.path ? pathname === item.path : false;
-
               return (
                 <SideNavItem
-                  active={active}
+                  active={item.active}
                   disabled={item.disabled}
                   external={item.external}
                   icon={item.icon}

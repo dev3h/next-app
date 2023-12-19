@@ -131,13 +131,55 @@ export const sideNavData = [
     items: [
       {
         title: "Settings",
-        path: "/settings",
+        // path: "/settings",
         state: "settings",
         icon: (
           <SvgIcon fontSize="small">
             <CogIcon />
           </SvgIcon>
         ),
+        subItems: [
+          {
+            title: "General",
+            path: "/settings/general",
+            state: "settings.general",
+            icon: (
+              <SvgIcon fontSize="small">
+                <CogIcon />
+              </SvgIcon>
+            ),
+          },
+          {
+            title: "Subscription",
+            path: "/settings/subscription",
+            state: "settings.subscription",
+            icon: (
+              <SvgIcon fontSize="small">
+                <CogIcon />
+              </SvgIcon>
+            ),
+          },
+          {
+            title: "Notifications",
+            path: "/settings/notifications",
+            state: "settings.notifications",
+            icon: (
+              <SvgIcon fontSize="small">
+                <CogIcon />
+              </SvgIcon>
+            ),
+          },
+          {
+            title: "Security",
+            path: "/settings/security",
+            state: "settings.security",
+            icon: (
+              <SvgIcon fontSize="small">
+                <CogIcon />
+              </SvgIcon>
+            ),
+          },
+        ],
       },
       {
         title: "Login",
